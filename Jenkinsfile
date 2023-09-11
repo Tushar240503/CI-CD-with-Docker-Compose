@@ -1,3 +1,4 @@
+
 #!/usr/bin/env groovy
 
 pipeline {
@@ -19,8 +20,14 @@ pipeline {
         }
         stage('deploy') {
             steps {
+
                 script {
-                    echo "Deploying the application..."
+                    def cmd='docker run -p 3000:3000 -d tushar24sharma/docker:4.1 '
+                    sshagent(['ec2-user']) {
+                        sh "ssh -o StrictHostKeyChecking=no ubuntu@13.233.85.187 ${cmd}"
+
+    // some block
+                    }
                 }
             }
         }
