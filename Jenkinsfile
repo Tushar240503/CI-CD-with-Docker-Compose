@@ -21,14 +21,14 @@ pipeline {
             steps {
 
                 script {
-                    def cmd='docker run -p 3000:3000 -d tushar24sharma/docker:4.1 '
-                    sshagent(['ubuntu']) {
-                        sh "ssh -o StrictHostKeyChecking=no ubuntu@13.233.85.187 ${cmd}"
+                    def dockerCmd='docker run -p 3080:3080 tushar24sharma/docker:1.1.2-20'
+                    sshagent(['aws']) {
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@54.224.249.251 ${dockerCmd}"
 
-    // some block
+    
+                       }
                     }
                 }
             }
         }
     }
-}
