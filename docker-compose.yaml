@@ -1,12 +1,13 @@
 version: '3.8'
 services:
     java-maven-app:
-      imgae: tushar24sharma/docker:7.1
+      image: tushar24sharma/docker:7.1  # Corrected 'imgae' to 'image'
       ports: 
         - 8080:8080
     postgres:
       image: postgres:13
-      port:
+      ports:  # Corrected 'port' to 'ports'
         - 5432:5432
       environment:
         - POSTGRES_PASSWORD=my-pwd
+
