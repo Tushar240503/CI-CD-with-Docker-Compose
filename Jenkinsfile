@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     def cmd1="chmod 777 server-cmd.sh"
-                    def cmd= "docker run hello-world"
+                    def cmd= "bash ./server-cmd.sh"
                     def cm2="chmod 777 docker-compose.yaml"
                     sshagent(['aws']) {
                         sh "scp docker-compose.yaml ec2-user@52.90.178.142:/home/ec2-user"
