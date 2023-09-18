@@ -1,29 +1,45 @@
+#!/usr/bin/env groovy
+
+@Library("Shared")
+
+def gv
+
 pipeline {
     agent any
+    tools {
+        maven 'maven'
+    }
     stages {
-        stage('test') {
+        stage("init") {
             steps {
                 script {
-                    echo "Testing the application..."
+                    gv = load "script.groovy"
                 }
             }
         }
-        stage('build') {
+        stage("build jar") {
             steps {
                 script {
-                    echo "Building the application..."
+                    buildJar()
                 }
             }
         }
-        stage('deploy') {
+        stage("build and push image") {
             steps {
                 script {
-                    def dockerCmd='docker run hello-world'
-                    sshagent(['aws']) {
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@54.224.249.251 ${dockerCmd}"
-                    }
+                       buildimage 'tushar24sharma/docker:7.1'
+                       dockerlogin()
+                       dockerpush 'tushar24sharma/docker:7.1'
+                }
+            }
+        }
+        stage("deploy") {
+            steps {
+                script {
+                    gv.deployApp()
                 }
             }
         }
     }
 }
+
