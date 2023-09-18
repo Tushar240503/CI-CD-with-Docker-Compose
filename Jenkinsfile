@@ -18,9 +18,10 @@ pipeline {
         stage('deploy') {
             steps {
                 script {
-                    def dockerCmd='docker run hello-world'
+                    def cmd="docker-compose -f docker-compose.yaml up --detach "
                     sshagent(['aws']) {
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@54.224.249.251 ${dockerCmd}"
+                        sh "scp docker-compose.yaml ec2-user@ip:/home/ec2-user"
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@54.224.249.251 ${cmd}"
                     }
                 }
             }
