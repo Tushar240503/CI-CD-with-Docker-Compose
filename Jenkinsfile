@@ -9,6 +9,9 @@ pipeline {
     tools {
         maven 'maven'
     }
+     environment {
+          IMAGE NAME ='tushar24sharma/docker:1.1.2-21'
+    }
     stages {
         stage("init") {
             steps {
