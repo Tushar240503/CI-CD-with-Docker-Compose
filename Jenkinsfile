@@ -18,7 +18,7 @@ pipeline {
         stage('deploy') {
             steps {
                 script {
-                    def dockerCmd='docker run redis'
+                    def dockerCmd='docker run hello-world'
                     sshagent(['aws']) {
                         sh "ssh -o StrictHostKeyChecking=no ec2-user@54.224.249.251 ${dockerCmd}"
                     }
